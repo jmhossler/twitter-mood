@@ -1,6 +1,7 @@
 ============
 twitter-mood
 ============
+[![Build Status](https://travis-ci.org/jmhossler/twitter-mood.svg?branch=master)](https://travis-ci.org/jmhossler/twitter-mood)
 
 
 Add a short description here!
