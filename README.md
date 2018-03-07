@@ -1,7 +1,7 @@
 twitter-mood
 ============
 [![Build Status](https://travis-ci.org/jmhossler/twitter-mood.svg?branch=master)](https://travis-ci.org/jmhossler/twitter-mood)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Add a short description here!
 
