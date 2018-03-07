@@ -2,7 +2,7 @@
 [run]
 branch = True
 source = */twitter_mood/*
-# omit = bad_file.py
+omit = */twitter_mood/__init__.py
 
 [report]
 # Regexes for lines to exclude from consideration
