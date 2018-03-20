@@ -20,7 +20,6 @@ entry_points = """
 """
 
 requires = ['pyscaffold>=3.0a0,<3.1a0',
-            'python-twitter>=3.4.1,<4.0.0',
             'textblob>=0.15.1,<0.16.0',
             ]
 
