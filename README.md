@@ -15,7 +15,8 @@ tweets from twitter matching a specific query.
 Usage
 -----
 
-`from twitter_mood import TwitterMoodGatherer
+```python
+from twitter_mood import TwitterMoodGatherer
 import twitter
 
 consumer_key='consumer_key'
@@ -34,7 +35,7 @@ twitter_mood_tool = TwitterMoodGatherer(twitter_api, query)
 twitter_mood_tool.gather_tweets()
 
 twitter_mood_tool.analyze_mood()  # return Sentiment Aggregate
-`
+```
 
 
 Note
