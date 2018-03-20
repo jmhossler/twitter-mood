@@ -13,7 +13,7 @@ class TestGetMoodSuite:
     @patch('twitter_mood.mood_gatherer.TextBlob')
     def test_get_mood_single_tweet(self, text_mock):
         twitter_mock = MagicMock()
-        twitter_mock.GetSearch.return_value = ['bar']
+        twitter_mock.GetSearch.return_value = [MagicMock(text='bar')]
         mood_gatherer = TwitterMoodGatherer(twitter_mock, 'foo')
         text_mock.return_value = MagicMock(
                 sentiment=MagicMock(
@@ -28,7 +28,9 @@ class TestGetMoodSuite:
     @patch('twitter_mood.mood_gatherer.TextBlob')
     def test_get_mood_multiple_tweets(self, text_mock):
         twitter_mock = MagicMock()
-        twitter_mock.GetSearch.return_value = ['bar', 'baz']
+        twitter_mock.GetSearch.return_value = [
+                MagicMock(text='bar'),
+                MagicMock(text='baz')]
         text_mock.side_effect = [
                 MagicMock(
                     sentiment=MagicMock(polarity=-0.3, subjectivity=1)),
