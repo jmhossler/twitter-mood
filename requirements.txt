@@ -1,7 +1,12 @@
-# Add your pinned requirements so that they can be easily installed with:
-# pip install -r requirements.txt
-# Remember to also add them in setup.cfg but unpinned.
-# Example:
-# numpy==1.13.3
-# scipy==1.0
-
+certifi==2018.1.18
+chardet==3.0.4
+future==0.16.0
+idna==2.6
+nltk==3.2.5
+oauthlib==2.0.7
+python-twitter==3.4.1
+requests==2.18.4
+requests-oauthlib==0.8.0
+six==1.11.0
+textblob==0.15.1
+urllib3==1.22

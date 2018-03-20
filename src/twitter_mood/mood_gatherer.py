@@ -1,15 +1,30 @@
-from .mood_interface import MoodInterface
+import collections
+
+from textblob import TextBlob
 
 
 class TwitterMoodGatherer:
 
-    def __init__(self, twitter_interface, sentiment_interface):
-        self.__twitter_interface = twitter_interface
-        self.__sentiment_interface = sentiment_interface
+    def __init__(self, twitter_api, query):
+        self.__twitter_api = twitter_api
+        self.__query = query
+        self.__sentiment_tool = TextBlob
+        self.__tweets = []
+        self.__sentiment_tuple = collections.namedtuple(
+                'Sentiment',
+                ['polarity', 'subjectivity'])
 
-    def get_mood(self, query):
-        tweets = self.__twitter_interface.query(query)
-        if len(tweets) == 0:
-            return MoodInterface()
-        return sum([self.__sentiment_interface.analyze(tweet)
-                    for tweet in tweets]) / len(tweets)
+    def get_mood(self):
+        if len(self.__tweets) == 0:
+            return self.__sentiment_tool('')
+        sentiments = [self.__sentiment_tool(tweet).sentiment
+                      for tweet in self.__tweets]
+        print(sentiments)
+        polarity_avg = sum(sentiment.polarity
+                           for sentiment in sentiments) / len(self.__tweets)
+        subjectivity_avg = sum(sentiment.subjectivity
+                               for sentiment in sentiments) / len(self.__tweets)
+        return self.__sentiment_tuple(polarity_avg, subjectivity_avg)
+
+    def gather_tweets(self):
+        self.__tweets = self.__twitter_api.GetSearch(term=self.__query)
