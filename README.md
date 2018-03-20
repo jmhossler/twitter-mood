@@ -34,7 +34,7 @@ twitter_mood_tool = TwitterMoodGatherer(twitter_api, query)
 
 twitter_mood_tool.gather_tweets()
 
-twitter_mood_tool.analyze_mood()  # return Sentiment Aggregate
+twitter_mood_tool.get_mood()  # return Sentiment Aggregate
 ```
 
 
