@@ -1,13 +1,12 @@
-twitter-mood
-============
+# twitter-mood
+
 [![Build Status](https://travis-ci.org/jmhossler/twitter-mood.svg?branch=master)](https://travis-ci.org/jmhossler/twitter-mood)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 twitter-mood is a python tool meant to simplify sentiment analysis of twitter queries.
 
 
-Description
------------
+## Description
 
 Using textblob and python-twitter, twitter-mood aggregates sentiment analysis of
 tweets from twitter matching a specific query.
@@ -38,8 +37,15 @@ twitter_mood_tool.analyze_mood()  # return Sentiment Aggregate
 ```
 
 
-Note
-----
+## Testing
+
+```
+pip install -r requirements.txt
+pip install .
+python setup.py test
+```
+
+## Note
 
 This project has been set up using PyScaffold 3.0.1. For details and usage
 information on PyScaffold see http://pyscaffold.org/.
