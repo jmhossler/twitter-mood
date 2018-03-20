@@ -19,11 +19,15 @@ entry_points = """
 # fibonacci = twitter_mood.skeleton:run
 """
 
+requires = ['pyscaffold>=3.0a0,<3.1a0',
+            'textblob>=0.15.1,<0.16.0',
+            ]
+
 
 def setup_package():
     needs_sphinx = {'build_sphinx', 'upload_docs'}.intersection(sys.argv)
     sphinx = ['sphinx'] if needs_sphinx else []
-    setup(setup_requires=['pyscaffold>=3.0a0,<3.1a0'] + sphinx,
+    setup(setup_requires=requires + sphinx,
           entry_points=entry_points,
           use_pyscaffold=True)
 
