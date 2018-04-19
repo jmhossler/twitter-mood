@@ -13,6 +13,9 @@ class TwitterMoodGatherer:
         self.__sentiment_tuple = collections.namedtuple(
                 'Sentiment',
                 ['polarity', 'subjectivity'])
+        self.__time_tuple = collections.namedtuple(
+                'TimeSentiment',
+                ['sentiment', 'epoch_time'])
 
     def get_mood(self):
         if len(self.__tweets) == 0:
@@ -29,3 +32,8 @@ class TwitterMoodGatherer:
         self.__tweets = self.__twitter_api.GetSearch(
                 term=self.__query,
                 count=100)
+
+    def get_moods(self):
+        return [self.__time_tuple(self.__sentiment_tool(tweet.text),
+                                  tweet.created_at_in_seconds)
+                for tweet in self.__tweets]
