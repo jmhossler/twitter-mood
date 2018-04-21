@@ -1,5 +1,5 @@
 import collections
-
+import re
 from textblob import TextBlob
 
 
@@ -20,7 +20,7 @@ class TwitterMoodGatherer:
     def get_mood(self):
         if len(self.__tweets) == 0:
             return self.__sentiment_tool('')
-        sentiments = [self.__sentiment_tool(tweet.text).sentiment
+        sentiments = [self.__sentiment_tool(self.__clean_tweet(tweet.text)).sentiment
                       for tweet in self.__tweets]
         polarity_avg = sum(sentiment.polarity
                            for sentiment in sentiments) / len(self.__tweets)
@@ -34,6 +34,10 @@ class TwitterMoodGatherer:
                 count=100)
 
     def get_moods(self):
-        return [self.__time_tuple(self.__sentiment_tool(tweet.text),
+        return [self.__time_tuple(self.__sentiment_tool(self.__clean_tweet(tweet.text)),
                                   tweet.created_at_in_seconds)
                 for tweet in self.__tweets]
+
+    def __clean_tweet(self, tweet):
+        """Remove links and special characters."""
+        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())

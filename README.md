@@ -37,6 +37,17 @@ twitter_mood_tool.gather_tweets()
 twitter_mood_tool.get_mood()  # return Sentiment Aggregate
 ```
 
+Development
+-----------
+
+### Testing
+```
+pip install pytest
+pip install pytest-cov
+pip install -r requirements.txt
+pip install .
+pytest tests
+```
 
 Note
 ----
