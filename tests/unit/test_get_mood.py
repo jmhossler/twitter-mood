@@ -89,3 +89,5 @@ class TestGetMoodSuite:
         mood = next(stream)
         assert mood.polarity == -0.1
         assert mood.subjectivity == 0.8
+        mood = next(stream, None)
+        assert mood is None
