@@ -10,6 +10,7 @@ class TwitterMoodGatherer:
         self.__query = query
         self.__sentiment_tool = TextBlob
         self.__tweets = []
+        self.__tweet_stream = None
         self.__sentiment_tuple = collections.namedtuple(
                 'Sentiment',
                 ['polarity', 'subjectivity'])
@@ -33,10 +34,19 @@ class TwitterMoodGatherer:
                 term=self.__query,
                 count=100)
 
+    def gather_tweet_stream(self):
+        self.__tweet_stream = self.__twitter_api.GetStreamFilter(
+                track=self.__query)
+
     def get_moods(self):
         return [self.__time_tuple(self.__sentiment_tool(self.__clean_tweet(tweet.text)),
                                   tweet.created_at_in_seconds)
                 for tweet in self.__tweets]
+
+    def get_mood_stream(self):
+        for tweet in self.__tweet_stream:
+            sentiment = self.__sentiment_tool(self.__clean_tweet(tweet.get('text', ''))).sentiment
+            yield self.__sentiment_tuple(sentiment.polarity, sentiment.subjectivity)
 
     def __clean_tweet(self, tweet):
         """Remove links and special characters."""

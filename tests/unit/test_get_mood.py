@@ -70,3 +70,22 @@ class TestGetMoodSuite:
                                     epoch_time=1),
                          time_tuple(sentiment=sentiment_b,
                                     epoch_time=2)]
+
+    @patch('twitter_mood.mood_gatherer.TextBlob')
+    def test_get_mood_from_stream(self, text_mock):
+        twitter_mock = MagicMock()
+        twitter_mock.GetStreamFilter.return_value = iter([{'text': 'bar'}, {'text': 'ree'}])
+        mood_gatherer = TwitterMoodGatherer(twitter_mock, 'foo')
+        text_mock.return_value = MagicMock(
+                sentiment=MagicMock(
+                    polarity=-0.1,
+                    subjectivity=0.8))
+
+        mood_gatherer.gather_tweet_stream()
+        stream = mood_gatherer.get_mood_stream()
+        mood = next(stream)
+        assert mood.polarity == -0.1
+        assert mood.subjectivity == 0.8
+        mood = next(stream)
+        assert mood.polarity == -0.1
+        assert mood.subjectivity == 0.8
