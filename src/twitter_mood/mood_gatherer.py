@@ -16,7 +16,7 @@ class TwitterMoodGatherer:
                 ['polarity', 'subjectivity'])
         self.__time_tuple = collections.namedtuple(
                 'TimeSentiment',
-                ['sentiment', 'epoch_time'])
+                ['sentiment', 'created_at', 'url'])
 
     def get_mood(self):
         if len(self.__tweets) == 0:
@@ -40,14 +40,25 @@ class TwitterMoodGatherer:
 
     def get_moods(self):
         return [self.__time_tuple(self.__sentiment_tool(self.__clean_tweet(tweet.text)),
-                                  tweet.created_at_in_seconds)
+                                  tweet.created_at,
+                                  self.__get_url(tweet.id_str, tweet.user.screen_name))
                 for tweet in self.__tweets]
 
     def get_mood_stream(self):
         for tweet in self.__tweet_stream:
             sentiment = self.__sentiment_tool(self.__clean_tweet(tweet.get('text', ''))).sentiment
-            yield self.__sentiment_tuple(sentiment.polarity, sentiment.subjectivity)
+            yield self.__time_tuple(
+                    sentiment,
+                    tweet.get('created_at', ''),
+                    self.__get_url(
+                        tweet.get('id_str', ''),
+                        tweet.get('user', {}).get('screen_name', '')))
 
-    def __clean_tweet(self, tweet):
+    @staticmethod
+    def __clean_tweet(tweet):
         """Remove links and special characters."""
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
+
+    @staticmethod
+    def __get_url(id_str, screen_name):
+        return f'https://twitter.com/{screen_name}/status/{id_str}'
