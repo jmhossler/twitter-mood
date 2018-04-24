@@ -61,4 +61,4 @@ class TwitterMoodGatherer:
 
     @staticmethod
     def __get_url(id_str, screen_name):
-        return f'https://twitter.com/{screen_name}/status/{id_str}'
+        return 'https://twitter.com/{}/status/{}'.format(screen_name, id_str)
