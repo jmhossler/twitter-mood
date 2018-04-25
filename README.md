@@ -15,6 +15,7 @@ tweets from twitter matching a specific query.
 Usage
 -----
 
+### Intialize Mood Gatherer
 ```python
 from twitter_mood import TwitterMoodGatherer
 import twitter
@@ -31,10 +32,39 @@ twitter_api = twitter.Api(consumer_secret=consumer_secret,
                           consumer_key=consumer_key)
 
 twitter_mood_tool = TwitterMoodGatherer(twitter_api, query)
+```
 
+### Retrieve 100 tweets matching query and get average sentiment
+```python
 twitter_mood_tool.gather_tweets()
 
-twitter_mood_tool.get_mood()  # return Sentiment Aggregate
+mood = twitter_mood_tool.get_mood()  # return Sentiment Aggregate
+polartiy = mood.polarity
+subjectivity = mood.subjectivity
+```
+
+### Get individual analysis of tweets
+```python
+twitter_mood_tool.gather_tweets()
+
+moods = twitter_mood_tool.get_moods()
+
+for mood in moods:
+  subjectivity = mood.sentiment.subjectivity
+  polarity = mood.sentiment.polarity
+  created_at = mood.created_at
+  tweet_url = mood.url
+```
+
+### Get mood analysis of stream of tweets
+```python
+twitter_mood_tool.gather_tweet_stream()
+
+for mood in twitter_mood_tool.get_mood_stream():
+  subjectivity = mood.sentiment.subjectivity
+  polarity = mood.sentiment.polarity
+  created_at = mood.created_at
+  tweet_url = mood.url
 ```
 
 Development
