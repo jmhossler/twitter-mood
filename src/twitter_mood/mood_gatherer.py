@@ -36,7 +36,7 @@ class TwitterMoodGatherer:
 
     def gather_tweet_stream(self):
         self.__tweet_stream = self.__twitter_api.GetStreamFilter(
-                track=self.__query)
+                track=[self.__query])
 
     def get_moods(self):
         return [self.__time_tuple(self.__sentiment_tool(self.__clean_tweet(tweet.text)),
