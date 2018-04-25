@@ -12,6 +12,20 @@ Description
 Using textblob and python-twitter, twitter-mood aggregates sentiment analysis of
 tweets from twitter matching a specific query.
 
+Requirements
+------------
+
+Other python requirements will be installed automatically with a pip install.
+Outside of that, the system requirements are very simple: \>python v3.4
+
+Installation
+------------
+
+twitter-mood is on pypi! You can install twitter-mood with a simple pip command:
+```bash
+pip install twitter-mood
+```
+
 Usage
 -----
 
